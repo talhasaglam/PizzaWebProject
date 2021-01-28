@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PizzaSitemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Mesaj">
+          <Key>
+            <PropertyRef Name="MesajId" />
+          </Key>
+          <Property Name="MesajId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adres" Type="nchar" MaxLength="500" />
+          <Property Name="UyeId" Type="int" />
+          <Property Name="PizzaId" Type="int" />
+          <Property Name="Telefon" Type="int" />
+        </EntityType>
+        <EntityType Name="Pizza">
+          <Key>
+            <PropertyRef Name="PizzaId" />
+          </Key>
+          <Property Name="PizzaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PizzaAdi" Type="nchar" MaxLength="100" />
+          <Property Name="Fiyat" Type="nchar" MaxLength="10" />
+          <Property Name="Fotograf" Type="nchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="nchar" MaxLength="100" />
+          <Property Name="KullaniciAdi" Type="nchar" MaxLength="50" />
+          <Property Name="Sifre" Type="nchar" MaxLength="50" />
+          <Property Name="Mail" Type="nchar" MaxLength="100" />
+          <Property Name="YetkiId" Type="int" />
+        </EntityType>
+        <EntityType Name="Yetki">
+          <Key>
+            <PropertyRef Name="YetkiId" />
+          </Key>
+          <Property Name="YetkiId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Yetki" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_Mesaj_Pizza">
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="0..1" />
+          <End Role="Mesaj" Type="Self.Mesaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizza">
+              <PropertyRef Name="PizzaId" />
+            </Principal>
+            <Dependent Role="Mesaj">
+              <PropertyRef Name="PizzaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
+          <End Role="Mesaj" Type="Self.Mesaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Mesaj">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uye_Yetki">
+          <End Role="Yetki" Type="Self.Yetki" Multiplicity="0..1" />
+          <End Role="Uye" Type="Self.Uye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yetki">
+              <PropertyRef Name="YetkiId" />
+            </Principal>
+            <Dependent Role="Uye">
+              <PropertyRef Name="YetkiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PizzaSitemModelStoreContainer">
+          <EntitySet Name="Mesaj" EntityType="Self.Mesaj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pizza" EntityType="Self.Pizza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yetki" EntityType="Self.Yetki" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Mesaj_Pizza" Association="Self.FK_Mesaj_Pizza">
+            <End Role="Pizza" EntitySet="Pizza" />
+            <End Role="Mesaj" EntitySet="Mesaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Uye" Association="Self.FK_Mesaj_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Mesaj" EntitySet="Mesaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uye_Yetki" Association="Self.FK_Uye_Yetki">
+            <End Role="Yetki" EntitySet="Yetki" />
+            <End Role="Uye" EntitySet="Uye" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PizzaSitemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Mesaj">
+          <Key>
+            <PropertyRef Name="MesajId" />
+          </Key>
+          <Property Name="MesajId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adres" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="UyeId" Type="Int32" />
+          <Property Name="PizzaId" Type="Int32" />
+          <Property Name="Telefon" Type="Int32" />
+          <NavigationProperty Name="Pizza" Relationship="Self.FK_Mesaj_Pizza" FromRole="Mesaj" ToRole="Pizza" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Mesaj_Uye" FromRole="Mesaj" ToRole="Uye" />
+        </EntityType>
+        <EntityType Name="Pizza">
+          <Key>
+            <PropertyRef Name="PizzaId" />
+          </Key>
+          <Property Name="PizzaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PizzaAdi" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Fiyat" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fotograf" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Mesaj" Relationship="Self.FK_Mesaj_Pizza" FromRole="Pizza" ToRole="Mesaj" />
+        </EntityType>
+        <EntityType Name="Uye">
+          <Key>
+            <PropertyRef Name="UyeId" />
+          </Key>
+          <Property Name="UyeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="YetkiId" Type="Int32" />
+          <NavigationProperty Name="Mesaj" Relationship="Self.FK_Mesaj_Uye" FromRole="Uye" ToRole="Mesaj" />
+          <NavigationProperty Name="Yetki" Relationship="Self.FK_Uye_Yetki" FromRole="Uye" ToRole="Yetki" />
+        </EntityType>
+        <EntityType Name="Yetki">
+          <Key>
+            <PropertyRef Name="YetkiId" />
+          </Key>
+          <Property Name="YetkiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Yetki1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Uye_Yetki" FromRole="Yetki" ToRole="Uye" />
+        </EntityType>
+        <Association Name="FK_Mesaj_Pizza">
+          <End Role="Pizza" Type="Self.Pizza" Multiplicity="0..1" />
+          <End Role="Mesaj" Type="Self.Mesaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizza">
+              <PropertyRef Name="PizzaId" />
+            </Principal>
+            <Dependent Role="Mesaj">
+              <PropertyRef Name="PizzaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mesaj_Uye">
+          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
+          <End Role="Mesaj" Type="Self.Mesaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uye">
+              <PropertyRef Name="UyeId" />
+            </Principal>
+            <Dependent Role="Mesaj">
+              <PropertyRef Name="UyeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Uye_Yetki">
+          <End Role="Yetki" Type="Self.Yetki" Multiplicity="0..1" />
+          <End Role="Uye" Type="Self.Uye" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yetki">
+              <PropertyRef Name="YetkiId" />
+            </Principal>
+            <Dependent Role="Uye">
+              <PropertyRef Name="YetkiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PizzaSitesiDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Mesaj" EntityType="Self.Mesaj" />
+          <EntitySet Name="Pizza" EntityType="Self.Pizza" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" />
+          <EntitySet Name="Yetki" EntityType="Self.Yetki" />
+          <AssociationSet Name="FK_Mesaj_Pizza" Association="Self.FK_Mesaj_Pizza">
+            <End Role="Pizza" EntitySet="Pizza" />
+            <End Role="Mesaj" EntitySet="Mesaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mesaj_Uye" Association="Self.FK_Mesaj_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Mesaj" EntitySet="Mesaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uye_Yetki" Association="Self.FK_Uye_Yetki">
+            <End Role="Yetki" EntitySet="Yetki" />
+            <End Role="Uye" EntitySet="Uye" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PizzaSitemModelStoreContainer" CdmEntityContainer="PizzaSitesiDB">
+          <EntitySetMapping Name="Mesaj">
+            <EntityTypeMapping TypeName="PizzaSitemModel.Mesaj">
+              <MappingFragment StoreEntitySet="Mesaj">
+                <ScalarProperty Name="MesajId" ColumnName="MesajId" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="PizzaId" ColumnName="PizzaId" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pizza">
+            <EntityTypeMapping TypeName="PizzaSitemModel.Pizza">
+              <MappingFragment StoreEntitySet="Pizza">
+                <ScalarProperty Name="PizzaId" ColumnName="PizzaId" />
+                <ScalarProperty Name="PizzaAdi" ColumnName="PizzaAdi" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="Fotograf" ColumnName="Fotograf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uye">
+            <EntityTypeMapping TypeName="PizzaSitemModel.Uye">
+              <MappingFragment StoreEntitySet="Uye">
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yetki">
+            <EntityTypeMapping TypeName="PizzaSitemModel.Yetki">
+              <MappingFragment StoreEntitySet="Yetki">
+                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
+                <ScalarProperty Name="Yetki1" ColumnName="Yetki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

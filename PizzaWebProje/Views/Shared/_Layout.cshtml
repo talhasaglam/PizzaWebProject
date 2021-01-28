@@ -1,0 +1,148 @@
+﻿
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> Pizza </title>
+    @*<link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />*@
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet" />
+
+    <link href="~/Content/css/price-range.css" rel="stylesheet" />
+
+    <link href="~/Content/css/animate.css" rel="stylesheet" />
+
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+
+    <link href="~/Content/css/responsive.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <!-- En son derlenmiş ve minimize edilmiş CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Opsiyonel tema -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+
+
+    <!--header-->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+
+
+</head><!--/head-->
+<body>
+    <header id="header">
+        <div class="header-middle">
+            <!--header-middle-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="logo pull-left">
+                            <a href="/Home/Index"><img src="~/Content/images/home/logoimg.png"  width="120px" height="120px" alt="" /></a>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-10">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="mainmenu pull-right">
+                            <ul class="nav navbar-nav collapse navbar-collapse">
+                                <li>@Html.ActionLink(dil.Resource.anasayfa, "Index", "Home")</li>
+                                <li>@Html.ActionLink(dil.Resource.hakkinda, "About", "Home")</li>
+                                <li>@Html.ActionLink(dil.Resource.iletisim, "Contact", "Home")</li>
+                                @if (Session["uyeid"] != null)
+                                {
+
+                                  
+                                    <li><a href="/Uye/Index/@Session["uyeid"]">@Session["kullaniciadi"].ToString()</a></li>
+                                    <li>@Html.ActionLink(dil.Resource.cikis, "Logout", "Uye")</li>
+
+
+                                    if (Convert.ToInt32(Session["yetkiid"]) == 1)
+                                    {
+                                        <li>@Html.ActionLink(dil.Resource.adminpaneli, "Index", "Admin")</li>
+                                    }
+
+
+
+                                }
+
+                                else
+                                {
+
+                                    <li>@Html.ActionLink(dil.Resource.kayitol, "Create", "Uye")</li>
+                                    <li>@Html.ActionLink(dil.Resource.girisyap, "Login", "Uye")</li>
+                                }
+                                <li>@Html.ActionLink("English", "DilDegistir", "Home", new { dil = "en", returnUrl = this.Request.RawUrl }, null)</li>
+                                <li>@Html.ActionLink("Türkçe", "DilDegistir", "Home", new { dil = "tr", returnUrl = this.Request.RawUrl }, null)</li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--/header-middle-->
+
+    </header><!--/header-->
+
+    @RenderBody()
+
+    <footer id="footer">
+        <!--Footer-->
+
+
+
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">Copyright © 2017 MAHMUT KAYA- TALHA SAĞLAM Inc. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+
+    </footer><!--/Footer-->
+    <!-- En son derlenmiş ve minimize edilmiş JavaScript -->
+
+
+    <script src="~/Scripts/js/jquery.js"></script>
+
+    @*<script src="~/Scripts/js/bootstrap.min.js"></script>*@
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="~/Scripts/js/jquery.scrollUp.min.js"></script>
+
+    <script src="~/Scripts/js/price-range.js"></script>
+
+    <script src="~/Scripts/js/jquery.prettyPhoto.js"></script>
+
+    <script src="~/Scripts/js/main.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

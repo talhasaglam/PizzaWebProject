@@ -1,0 +1,49 @@
+﻿@model PizzaWebProje.Models.Pizza
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@dil.Resource.pizzasil</h2>
+
+<h3>@dil.Resource.islemonayi</h3>
+<div>
+    <h4>@dil.Resource.pizza</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName(dil.Resource.pizzaadi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PizzaAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayName(dil.Resource.fiyat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fiyat)
+        </dd>
+
+        <dt>
+            @Html.DisplayName(dil.Resource.fotograf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fotograf)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="@dil.Resource.sil" class="btn btn-default" /> |
+            @Html.ActionLink(@dil.Resource.geridon, "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PizzaWebProje.Models.Pizza>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>@dil.Resource.pizzalar</h2>
+
+<p>
+    @Html.ActionLink(dil.Resource.yenipizzaekle, "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName(dil.Resource.pizzaadi)
+        </th>
+        <th>
+            @Html.DisplayName(dil.Resource.fiyat)
+        </th>
+        <th>
+            @Html.DisplayName(dil.Resource.fotograf)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PizzaAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fiyat)
+        </td>
+        <td>
+            <img width="80" src="@item.Fotograf"/>
+        </td>
+        <td>
+            @Html.ActionLink(dil.Resource.duzenle, "Edit", new { id=item.PizzaId }) |
+            @Html.ActionLink(dil.Resource.detay, "Details", new { id=item.PizzaId }) |
+            @Html.ActionLink(dil.Resource.sil, "Delete", new { id=item.PizzaId })
+        </td>
+    </tr>
+}
+
+</table>

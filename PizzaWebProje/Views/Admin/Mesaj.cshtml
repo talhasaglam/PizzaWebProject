@@ -1,0 +1,49 @@
+﻿@model IEnumerable<PizzaWebProje.Models.Mesaj>
+
+@{
+    ViewBag.Title = "Mesaj";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Mesajlar</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Adres)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefon)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pizza.PizzaAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uye.AdSoyad)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pizza.PizzaAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uye.AdSoyad)
+        </td>
+        <td>
+           
+            @Html.ActionLink(dil.Resource.sil, "Delete", new { id=item.MesajId })
+        </td>
+    </tr>
+}
+
+</table>

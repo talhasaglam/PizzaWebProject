@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@model IEnumerable<PizzaWebProje.Models.Pizza>
+<section>
+    
+    <div class="container">
+
+
+        <div class="features_items">
+            <!--features_items-->
+            <h2 class="title text-center">@dil.Resource.pizzalar</h2>
+
+
+            @foreach (var Pizza in Model)
+
+            {
+
+
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <img src="@Pizza.Fotograf" alt="" />
+                                <h2>@Pizza.Fiyat</h2>
+                                <p>@Pizza.PizzaAdi</p>
+                                <a href="/Home/SatinAl" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>@dil.Resource.satinal</a>
+                            </div>
+                            <div class="product-overlay">
+                                <div class="overlay-content">
+                                    <h2>@Pizza.Fiyat</h2>
+                                    <p>@Pizza.PizzaAdi</p>
+                                    <a href="/Home/SatinAl" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>@dil.Resource.satinal</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+
+
+        </div><!--features_items-->
+    </div>
+    
+</section>
